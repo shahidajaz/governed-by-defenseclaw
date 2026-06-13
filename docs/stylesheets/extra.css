@@ -1,0 +1,385 @@
+/* Float phone screenshots on the right of the step content */
+.phone-shot {
+  float: right;
+  width: 280px;
+  margin: 0 0 1.5rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Wrap each numbered step so the next section starts cleanly below the floated image */
+.step-with-shot::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Make sure h2/h3 inside a phone-shot section don't get pushed too far */
+.step-with-shot h2,
+.step-with-shot h3 {
+  margin-top: 0;
+}
+
+/* Responsive: stack on narrow screens */
+@media (max-width: 720px) {
+  .phone-shot {
+    float: none;
+    display: block;
+    margin: 0 auto 1rem;
+  }
+}
+
+/* Wider variant for terminal screenshots (landscape orientation) */
+.terminal-shot {
+  float: right;
+  width: 320px;
+  margin: 0 0 1.5rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 720px) {
+  .terminal-shot {
+    float: none;
+    display: block;
+    width: 100%;
+    margin: 0 auto 1rem;
+  }
+}
+
+/* === Top tabs: smaller height, active tab gets a clear box === */
+.md-tabs {
+  height: 2.2rem;
+  font-weight: 500;
+}
+
+.md-tabs__list { height: 2.2rem; }
+.md-tabs__item { height: 2.2rem; }
+
+.md-tabs__link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.75;
+  padding: 0.3rem 0.85rem;
+  margin: 0 0.2rem;
+  margin-top: 0.4rem;
+  border-radius: 4px;
+  border: 1.5px solid transparent;
+  transition: opacity 0.15s, border-color 0.15s, background-color 0.15s;
+}
+
+.md-tabs__link:hover {
+  opacity: 1;
+}
+
+/* Active tab: solid visible box outline + subtle bg tint */
+.md-tabs__item--active .md-tabs__link {
+  font-weight: 800;
+  opacity: 1 !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* === Sidebar: demote the duplicate part-name header === */
+/* The "DefenseClaw" / "Telegram" / "Webex" label at the top of the sidebar
+   is a duplicate of the active top tab. Shrink + softer color so the real
+   navigation (Base install, Extensions, Setup, Stages, etc.) reads first. */
+.md-nav--primary > .md-nav__title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+  padding-top: 0.6rem;
+  padding-bottom: 0.4rem;
+}
+
+/* The sub-section headers (Base install / Extensions / Setup / Stages / Wrap-up)
+   become the real eye-level entries — bump them up slightly */
+.md-nav__item--section > .md-nav__link {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+
+/* === Project Steps — two-column compact text list === */
+.step-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 1.25rem 0;
+}
+
+.step-grid > div { min-width: 0; }
+
+/* Subtler section headers — uppercase but small and muted */
+.step-grid h3 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  border-bottom: 1px solid var(--md-default-fg-color--lighter);
+  padding-bottom: 0.35rem;
+}
+
+/* Kill default ul styling */
+.md-typeset .step-list,
+.md-typeset .step-list li {
+  list-style: none !important;
+  list-style-type: none !important;
+}
+.md-typeset .step-list { padding: 0 !important; margin: 0 !important; }
+.md-typeset .step-list li { margin: 0 !important; padding: 0 !important; }
+.md-typeset .step-list li::before,
+.md-typeset .step-list li::marker {
+  content: none !important;
+  display: none !important;
+}
+
+/* Each row: flex with number left-aligned, title right of it */
+.step-list a {
+  display: flex !important;
+  align-items: baseline;
+  padding: 0.18rem 0;
+  text-decoration: none !important;
+  color: var(--md-default-fg-color);
+  font-size: 0.78rem;           /* matches Material body text */
+  line-height: 1.55;
+  transition: color 0.1s;
+}
+
+.step-list a:hover {
+  color: var(--md-primary-fg-color);
+}
+
+/* Subtle muted numbers — fixed-width column on left */
+.step-num {
+  display: inline-block;
+  width: 1.3rem;
+  text-align: right;
+  margin-right: 0.7rem;
+  opacity: 0.45;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  background: transparent !important;
+  color: inherit !important;
+  border-radius: 0 !important;
+  height: auto !important;
+  border: 0 !important;
+  font-size: inherit !important;
+  flex-shrink: 0;
+}
+
+.step-num--dash {
+  font-weight: 400;
+  opacity: 0.35;
+}
+
+@media (max-width: 720px) {
+  .step-grid { grid-template-columns: 1fr; }
+}
+/* === Compact tables inside tabs (cuts ~30% off height) === */
+.tabbed-content table {
+  font-size: 0.85rem;
+  margin: 0.4rem 0;
+}
+
+.tabbed-content table th,
+.tabbed-content table td {
+  padding: 0.3rem 0.7rem !important;
+  line-height: 1.4;
+}
+
+.tabbed-content {
+  padding-top: 0.4rem !important;
+}
+
+/* === Onboard step: command on left, provider tabs+table on right === */
+.onboard-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.5fr;
+  gap: 2rem;
+  margin: 1rem 0 2rem 0;
+  align-items: start;
+}
+
+.onboard-grid > div { min-width: 0; }
+
+/* Don't let the code block get clipped — scroll horizontally if it overflows */
+.onboard-grid .highlight,
+.onboard-grid pre,
+.onboard-grid pre code {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media (max-width: 960px) {
+  .onboard-grid { grid-template-columns: 1fr; }
+}
+
+/* === Hide right-hand Table of Contents on all pages + widen the content area === */
+.md-sidebar--secondary { display: none !important; }
+
+@media screen and (min-width: 76.25em) {
+  /* Let the content fill the space the TOC used to take */
+  .md-main__inner > .md-content { max-width: none; }
+  /* Wider readable line for prose / code / tables */
+  .md-content__inner { max-width: 64rem; margin-left: auto; margin-right: auto; }
+}
+
+/* === Hero block for the series overview page === */
+.dc-hero {
+  position: relative;
+  margin: -1.5rem -1.5rem 2.5rem -1.5rem;
+  padding: 5rem 2rem;
+  text-align: center;
+  background: url("../assets/hero-shards.svg") center/cover no-repeat, #0a0e1a;
+  border-radius: 0 0 18px 18px;
+  overflow: hidden;
+  color: #eef2ff;
+}
+
+/* Sub-cap "NOW AVAILABLE"-style badge */
+.dc-hero__badge {
+  display: inline-block;
+  background: rgba(78, 168, 255, 0.12);
+  color: #6ec1ff;
+  border: 1px solid rgba(78, 168, 255, 0.35);
+  border-radius: 999px;
+  padding: 0.4rem 1.1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.dc-hero__title {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 800;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+}
+
+.dc-hero__title-1 {
+  display: block;
+  color: #ffffff;
+}
+
+.dc-hero__title-2 {
+  display: block;
+  color: #6ec1ff;
+  text-shadow: 0 2px 30px rgba(110, 193, 255, 0.35);
+}
+
+.dc-hero__subtitle {
+  font-size: 1.1rem;
+  color: rgba(238, 242, 255, 0.72);
+  max-width: 38rem;
+  margin: 1rem auto 2.5rem;
+  line-height: 1.55;
+}
+
+.dc-hero__ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.dc-hero__cta {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-decoration: none !important;
+  transition: transform 0.18s, background-color 0.18s;
+  text-transform: uppercase;
+}
+
+.dc-hero__cta--primary {
+  background: #6ec1ff;
+  color: #0a0e1a !important;
+}
+.dc-hero__cta--primary:hover {
+  background: #99d2ff;
+  transform: translateY(-2px);
+}
+
+.dc-hero__cta--secondary {
+  background: transparent;
+  color: #6ec1ff !important;
+  border: 2px solid #6ec1ff;
+}
+.dc-hero__cta--secondary:hover {
+  background: rgba(110, 193, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Hide the markdown H1 on the overview page since the hero IS the title */
+.dc-overview-page .md-content__inner > h1:first-of-type {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .dc-hero { padding: 3.5rem 1.25rem; margin-left: -1rem; margin-right: -1rem; }
+}
+
+/* === Typography: bigger, friendlier === */
+:root {
+  --md-text-font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --md-code-font-family: "JetBrains Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
+}
+
+/* Bump base font from Material's 16px to 17px — easier to read */
+.md-typeset {
+  font-size: 0.85rem;       /* up from .8 */
+  line-height: 1.7;          /* up from 1.6 */
+}
+
+/* Slightly larger code blocks too */
+.md-typeset code,
+.md-typeset pre {
+  font-size: 0.82em;
+  line-height: 1.6;
+}
+
+/* Subtler weight on body, sharper on headings (Inter handles this well) */
+.md-typeset {
+  font-weight: 400;
+}
+.md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* === Hero-matching accent: override Material's "light blue" with the exact tone === */
+:root {
+  --md-accent-fg-color:           #6ec1ff;
+  --md-accent-fg-color--transparent: rgba(110, 193, 255, 0.1);
+}
+
+/* Slightly brighter link color in dark mode for contrast against the black primary */
+[data-md-color-scheme="slate"] {
+  --md-typeset-a-color: #6ec1ff;
+}
+
+/* === Hero compact variant: just the title, smaller padding === */
+.dc-hero--compact {
+  padding: 2.5rem 2rem;
+}
+
+.dc-hero--compact .dc-hero__title {
+  font-size: clamp(1.75rem, 4.5vw, 3.5rem);
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .dc-hero--compact { padding: 2rem 1rem; }
+}

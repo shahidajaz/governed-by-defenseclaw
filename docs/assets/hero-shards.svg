@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#1b2540"/>
+      <stop offset="55%" stop-color="#0c1124"/>
+      <stop offset="100%" stop-color="#05070f"/>
+    </radialGradient>
+    <linearGradient id="shard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ea8ff"/>
+      <stop offset="100%" stop-color="#1a4d8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="800" fill="url(#bg)"/>
+  <g fill="url(#shard)">
+    <polygon points="90,420 140,395 110,485" opacity="0.55"/>
+    <polygon points="180,560 215,540 195,610" opacity="0.45"/>
+    <polygon points="250,200 290,170 270,250" opacity="0.6"/>
+    <polygon points="370,350 410,330 385,410" opacity="0.35"/>
+    <polygon points="80,650 120,635 90,710" opacity="0.5"/>
+    <polygon points="220,80 260,60 230,140" opacity="0.4"/>
+    <polygon points="430,520 470,495 445,580" opacity="0.55"/>
+    <polygon points="520,220 555,200 530,275" opacity="0.45"/>
+    <polygon points="160,300 190,285 175,355" opacity="0.5"/>
+    <polygon points="340,650 380,640 365,720" opacity="0.4"/>
+
+    <polygon points="1080,160 1120,140 1100,220" opacity="0.55"/>
+    <polygon points="1240,300 1280,280 1260,360" opacity="0.45"/>
+    <polygon points="1370,480 1410,460 1390,540" opacity="0.6"/>
+    <polygon points="1140,550 1180,540 1165,615" opacity="0.35"/>
+    <polygon points="1480,200 1520,180 1500,260" opacity="0.5"/>
+    <polygon points="1310,640 1340,625 1325,705" opacity="0.4"/>
+    <polygon points="1450,360 1490,345 1470,420" opacity="0.55"/>
+    <polygon points="1190,720 1230,700 1210,775" opacity="0.45"/>
+    <polygon points="1020,420 1055,405 1040,475" opacity="0.5"/>
+    <polygon points="1420,80 1460,65 1440,145" opacity="0.4"/>
+
+    <polygon points="640,80 670,70 655,140" opacity="0.3"/>
+    <polygon points="760,720 790,710 775,775" opacity="0.3"/>
+    <polygon points="880,40 910,30 895,90" opacity="0.25"/>
+    <polygon points="710,740 740,725 720,795" opacity="0.3"/>
+  </g>
+</svg>
