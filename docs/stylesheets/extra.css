@@ -521,3 +521,48 @@
   font-weight: 600;
   opacity: 1;
 }
+
+/* ── Sidebar tighter to the left edge ── */
+@media screen and (min-width: 76.1875em) {
+  .md-sidebar--primary {
+    width: 13.5rem;
+    padding-left: 0 !important;
+    padding-right: 6px;
+  }
+  .md-main__inner > .md-content {
+    margin-left: 0;
+  }
+}
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  padding-left: 8px;
+}
+
+/* Sub-items (the 4 model leaves under Step 3) — indent + dim like a child list */
+.md-sidebar--primary .md-nav__item .md-nav__item .md-nav__link {
+  padding-left: 28px;
+  font-size: 13px;
+  color: rgba(0,0,0,0.62);
+  position: relative;
+}
+.md-sidebar--primary .md-nav__item .md-nav__item .md-nav__link::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  width: 6px;
+  height: 1px;
+  background: rgba(0,0,0,0.25);
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item .md-nav__item .md-nav__link {
+  color: rgba(255,255,255,0.62);
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item .md-nav__item .md-nav__link::before {
+  background: rgba(255,255,255,0.25);
+}
+
+/* Re-enable section toggle for the Step 3 group (nav.sections kept it from being clickable; we need users to expand it) */
+.md-sidebar--primary .md-nav__item--nested > .md-nav__link {
+  cursor: pointer;
+  pointer-events: auto;
+  color: inherit !important;
+}

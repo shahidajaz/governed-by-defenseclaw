@@ -5,8 +5,6 @@ docs_dir: docs
 theme:
   name: material
   features:
-    - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.indexes
     - navigation.top
     - navigation.tracking
@@ -65,11 +63,12 @@ nav:
     - Part 1 — Overview: part1/index.md
     - Step 1 — Prerequisites: part1/01-prereqs.md
     - Step 2 — Install: part1/02-install.md
-    - Step 3 — Set up your model: part1/03-setup-model.md
-    - ↳ Anthropic: part1/step3-anthropic.md
-    - ↳ OpenAI: part1/step3-openai.md
-    - ↳ vLLM: part1/step3-vllm.md
-    - ↳ Ollama: part1/step3-ollama.md
+    - Step 3 — Set up your model:
+      - Pick your model: part1/03-setup-model.md
+      - Anthropic: part1/step3-anthropic.md
+      - OpenAI: part1/step3-openai.md
+      - vLLM: part1/step3-vllm.md
+      - Ollama: part1/step3-ollama.md
     - Step 5 — Sandbox-native: part1/05-sandbox.md
     - Step 6 — Action mode: part1/06-action-mode.md
     - Step 7 — Splunk dashboard: part1/07-splunk.md
