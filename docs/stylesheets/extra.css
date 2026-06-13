@@ -383,3 +383,115 @@
 @media (max-width: 720px) {
   .dc-hero--compact { padding: 2rem 1rem; }
 }
+
+/* ────────────────────────────────────────────────────────────────────
+   Medium-render layout tuning — applied to the public GH Pages site.
+   Goal: cleaner sidebar (Part headings as small-caps labels, no icons),
+   slightly serif-leaning body, calmer header.
+   ──────────────────────────────────────────────────────────────────── */
+
+/* Headings already used Source Serif Pro; ensure body inherits */
+:root {
+  --md-text-font: "Source Serif Pro", Charter, Georgia, serif;
+  --md-code-font: "JetBrains Mono", Menlo, monospace;
+}
+
+/* Header: less bold, calmer look */
+.md-header {
+  background: #0a0e1a;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.md-header__title {
+  font-family: "Source Serif Pro", Charter, serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Sidebar: text-only, smaller, calmer hierarchy */
+.md-sidebar--primary {
+  padding-top: 8px;
+}
+.md-nav__title {
+  display: none;  /* hide the top "Table of contents" / nav title */
+}
+.md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link,
+.md-nav__item--section > .md-nav__link[for] {
+  display: none;
+}
+
+/* Make section-level part labels look like Medium's small-caps section heads */
+.md-sidebar--primary .md-nav__item.md-nav__item--section
+  > .md-nav__link {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(0,0,0,0.55);
+  margin-top: 16px;
+  margin-bottom: 4px;
+  padding-left: 0;
+  pointer-events: none;
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item.md-nav__item--section
+  > .md-nav__link {
+  color: rgba(255,255,255,0.5);
+}
+
+/* Sidebar links: clean text, no icons */
+.md-sidebar--primary .md-nav__link {
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+.md-sidebar--primary .md-nav__link:hover {
+  background: rgba(0,0,0,0.04);
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__link:hover {
+  background: rgba(255,255,255,0.05);
+}
+.md-sidebar--primary .md-nav__link--active {
+  background: rgba(110, 193, 255, 0.12);
+  color: #0072c6 !important;
+  font-weight: 600;
+}
+
+/* Hide the "icon" arrows beside sub-section toggles */
+.md-nav__icon { display: none !important; }
+
+/* Article body: slightly larger serif text for a Medium-like read */
+.md-typeset {
+  font-size: 17px;
+  line-height: 1.7;
+  letter-spacing: -0.003em;
+}
+.md-typeset h1 {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  line-height: 1.15;
+  margin-top: 0;
+}
+.md-typeset h2 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+}
+.md-typeset h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.md-typeset p, .md-typeset li {
+  font-family: "Source Serif Pro", Charter, serif;
+}
+
+/* Code blocks: clean look like Medium */
+.md-typeset code,
+.md-typeset pre {
+  font-family: "JetBrains Mono", Menlo, monospace;
+}
+.md-typeset pre > code {
+  font-size: 14px;
+  line-height: 1.5;
+}
