@@ -257,9 +257,9 @@ Send the benign prompt (you'll get a normal answer streaming back), then the SSH
 
 You now have a governed vLLM/Ollama-backed OpenClaw agent in **host mode**. The full stack is one more step:
 
-- [Step 5. Move into the sandbox](MEDIUM_URL_TO_05_SANDBOX), full deployment (OpenClaw + DefenseClaw + OpenShell isolation)
+- [Step 5. Move into the sandbox](../05-sandbox/), full deployment (OpenClaw + DefenseClaw + OpenShell isolation)
 - [Step 6. Flip to action mode](MEDIUM_URL_TO_06_ACTION_MODE), start blocking instead of just observing
 - [Step 7. Splunk dashboard](MEDIUM_URL_TO_07_SPLUNK), searchable audit trail
 - Or continue to [Part 2. Telegram](MEDIUM_URL_TO_PART2_INDEX) to add a chat channel
 
-**[Continue to Sandbox-native →](MEDIUM_URL_TO_05_SANDBOX)**
+**[Continue to Sandbox-native →](../05-sandbox/)**
