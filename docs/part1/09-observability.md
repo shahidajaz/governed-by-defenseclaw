@@ -103,6 +103,27 @@ ssh -L 3001:127.0.0.1:3001 ajspark@<dgx-host>
 
 …then open **http://localhost:3001** (login: `admin` / `admin`).
 
+### Pre-provisioned dashboards
+
+DefenseClaw ships **13 dashboards** wired to the same audit pipeline that feeds Splunk in Step 7. They appear under **Dashboards** in the left nav as soon as Grafana boots:
+
+![Grafana dashboards list — 13 pre-provisioned DefenseClaw views](../assets/step9-grafana-dashboards.png)
+
+| Dashboard | What it shows |
+|---|---|
+| Overview | High-level health, scan throughput, top categories |
+| AI Agent Usage & Detection | Inbound prompts per agent, sev distribution |
+| Guardrail Evaluations | Per-rule hit counts, block vs observe |
+| Findings (Rule detail) | Drill-down on a specific rule's matches |
+| Connector Detail / Hook Connectors | Per-connector activity |
+| HITL (Human-in-the-Loop) | Approval queue, pending verdicts |
+| Policy decisions | OPA egress / route decisions |
+| Proxy & LLM Guard | Guardrail-proxy traffic, judge calls, traces |
+| Reliability | Sink delivery, gateway errors |
+| Runtime & SLO | Latency / error budget |
+| Scanners (Ops) | Skill + MCP scanner findings |
+| Agent identity | Per-agent identity surface |
+
 ## Prometheus scrape (existing setup)
 
 If you already run Prometheus, point it at DefenseClaw's metrics endpoint:
