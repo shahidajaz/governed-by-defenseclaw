@@ -138,17 +138,15 @@ defenseclaw-gateway restart
 
 ## 7.5 — Open the dashboard
 
-Splunk Web is bound to `127.0.0.1:8090`. Open it directly from your laptop browser if you've fronted it with a Cloudflare Access tunnel:
-
-# https://splunk.theacmeai.com
-
-Or SSH-tunnel from your laptop if you haven't set up a tunnel:
+Splunk Web is bound to `127.0.0.1:8090` on the host. Reach it from your laptop by SSH-tunnelling:
 
 ```bash
 ssh -L 8090:127.0.0.1:8090 youruser@your-dgx-host
 ```
 
-*(leave the shell open, then browse to http://localhost:8090)*
+Leave that shell open, then browse to **http://localhost:8090**.
+
+If you've already exposed the host through a Cloudflare Access / Tailscale / reverse proxy hostname, you can hit `https://your-splunk-hostname.example.com` directly instead — same login, same dashboard.
 
 | Field | Value |
 |---|---|

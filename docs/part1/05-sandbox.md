@@ -37,7 +37,7 @@ The wizard prompts:
 
 | Prompt | Answer |
 |---|---|
-| Confirm OpenClaw home path | press Enter *(accepts the detected `/home/ajspark/.openclaw`)* |
+| Confirm OpenClaw home path | press Enter *(accepts the detected `~/.openclaw` for your shell user)* |
 | Proceed with ownership change | `Y` |
 
 ??? note "Expected output (tail)"
@@ -166,7 +166,7 @@ grep -i 'CRITICAL\|PATH-SSH-KEY' ~/.defenseclaw/gateway.log | tail -3
 
 | Layer | Host mode | Sandbox-native |
 |---|---|---|
-| Agent runs as | you (uid 1000) | `sandbox` (uid 996) |
+| Agent runs as | your shell user | dedicated `sandbox` system user |
 | Agent's home | `~` | `/home/sandbox` |
 | Agent's network | host | isolated netns (`10.200.0.0/24`) |
 | If tool call slips past guardrail | full access to your files, keys, cloud creds | confined to sandbox view; can't reach your real environment |

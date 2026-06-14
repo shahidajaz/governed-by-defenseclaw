@@ -91,17 +91,15 @@ defenseclaw setup local-observability up
 
 ### Open Grafana
 
-If you've Cloudflare-tunneled it (the same way Splunk goes through `splunk.theacmeai.com`):
-
-# https://grafana.theacmeai.com
-
-Otherwise SSH-tunnel from your laptop:
+Grafana is bound to `127.0.0.1:3001` on the host. Reach it from your laptop by SSH-tunnelling:
 
 ```bash
-ssh -L 3001:127.0.0.1:3001 ajspark@<dgx-host>
+ssh -L 3001:127.0.0.1:3001 youruser@your-dgx-host
 ```
 
-…then open **http://localhost:3001** (login: `admin` / `admin`).
+…then browse to **http://localhost:3001** (login: `admin` / `admin`).
+
+If you've already exposed the host through a Cloudflare Access / Tailscale / reverse proxy hostname, hit `https://your-grafana-hostname.example.com` directly instead.
 
 ### Pre-provisioned dashboards
 
