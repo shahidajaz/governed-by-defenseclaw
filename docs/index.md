@@ -38,6 +38,11 @@ It wraps around your OpenClaw setup and does what a good guard does. It checks a
 
 And DefenseClaw doesn't work alone. Underneath it, NVIDIA's **OpenShell** keeps the agent in a sandbox, so even if something slips past, it stays contained and can't reach the rest of your machine.
 
+And this is not OpenClaw-only. DefenseClaw now ships connectors for a whole range of agents, from Claude Code and Codex to Cursor, Gemini CLI, and more, all governed through one gateway with the same rules. You pick the agent; the guardrails don't change.
+
+![alt text](image.png)
+Source: Cisco AI Defense · cisco-ai-defense.github.io/defenseclaw
+
 For the deeper "why," [**DJ Sampath**](https://blogs.cisco.com/ai/cisco-announces-defenseclaw){ target="_blank" rel="noopener" } explains it well in his blog, and [**Arjun Sambamoorthy**](https://blogs.cisco.com/ai/defenseclaw-is-live){ target="_blank" rel="noopener" } covers the DefenseClaw stack in his post.
 
 ## What I'm Actually Building
