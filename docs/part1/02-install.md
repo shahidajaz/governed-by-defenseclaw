@@ -41,6 +41,21 @@ The installer asks which **connector** to wire up. Pick `4` for **openclaw**:
   5) none
 ```
 
+!!! warning "If install fails: `No solution found … click==8.3.1 … click==8.1.8`"
+    The DefenseClaw 0.7.x wheel declares `click==8.3.1` while its transitive dep `litellm==1.83.7` declares `click==8.1.8` — pins that can never co-resolve. Newer `uv` enforces this strictly. To bypass with a one-shot override:
+
+    ```bash
+    cat > /tmp/dc-overrides.txt <<'EOF'
+    click
+    litellm
+    EOF
+
+    UV_OVERRIDE=/tmp/dc-overrides.txt \
+      curl -LsSf https://raw.githubusercontent.com/cisco-ai-defense/defenseclaw/main/scripts/install.sh | bash
+    ```
+
+    Tracked upstream: [cisco-ai-defense/defenseclaw](https://github.com/cisco-ai-defense/defenseclaw/issues). This block can be removed once Cisco republishes the wheel with looser pins.
+
 Verify:
 
 ```bash
