@@ -83,11 +83,11 @@ Answer the wizard:
 | Web search | Skip for now |
 | Skills | No |
 | Enable hooks | command-logger |
-| Hatch your bot | Hatch in TUI |
+| Hatch your bot | Hatch in TUI *(when the TUI loads and "Hey! I'm awake…" appears, press Ctrl+C twice to return to the shell)* |
 
-### Manual tweak #1 — fix the vLLM API type
+### Set the vLLM API style for chat models
 
-*Note: the wizard writes `api: openai-completions` by default. For a chat/reasoning model that returns near-empty replies. Flip it to `openai-responses`.*
+Chat/reasoning models (like `gpt-oss-120b`) reply through the `openai-responses` API. Set that on the vLLM provider entry, and turn off reasoning so the gateway streams the answer directly.
 
 ```bash
 python3 - <<'EOF'
@@ -103,9 +103,9 @@ print("api ->", v['api'])
 EOF
 ```
 
-### Manual tweak #2 — add LLM keys to the gateway service env
+### Persist the LLM key into the gateway service
 
-*Note: the systemd service starts without the LLM key in its environment. A drop-in carries it across reboots.*
+Drop the LLM key into the OpenClaw gateway's systemd environment so it survives restarts and reboots:
 
 ```bash
 mkdir -p ~/.config/systemd/user/openclaw-gateway.service.d
@@ -148,9 +148,9 @@ Answer the init wizard:
 | Start gateway after setup | **y** |
 | Run readiness checks | **y** |
 
-### Manual tweak #3 — register the vLLM endpoint
+### Register the vLLM endpoint
 
-*Note: DefenseClaw needs to know your server's address as a known provider. Declare both the bare host and host:port as domains.*
+Tell DefenseClaw your local server is a known provider. Declare both the bare host and host:port as domains, so the guardrail recognises traffic from OpenClaw heading to your vLLM:
 
 ```bash
 defenseclaw setup provider add \
@@ -202,6 +202,42 @@ defenseclaw doctor 2>&1 | grep -iE 'LLM reachable|overlay'
 ??? note "Expected output"
     `[PASS] LLM reachable` and `[PASS] Custom-provider overlay`
 
+### Run the DefenseClaw gateway as a service
+
+The gateway hosts the guardrail proxy on `127.0.0.1:4000` and the sidecar API on `127.0.0.1:18970`. Run it as a user-level systemd service so it starts on boot and stays up across logouts:
+
+```bash
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/defenseclaw-gateway.service <<'EOF'
+[Unit]
+Description=DefenseClaw Gateway (guardrail proxy + sidecar)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/defenseclaw-gateway
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
+EOF
+```
+
+```bash
+systemctl --user daemon-reload
+systemctl --user enable --now defenseclaw-gateway
+sudo loginctl enable-linger $USER
+```
+
+Confirm both ports are listening:
+
+```bash
+ss -tlnp | grep -E ':(4000|18970)'
+```
+
+??? note "Expected output"
+    Two `LISTEN` lines — one on `127.0.0.1:4000` (guardrail proxy) and one on `127.0.0.1:18970` (sidecar API), both owned by `defenseclaw-gat`.
 
 ## 4B.3 — Configure the guardrail
 
