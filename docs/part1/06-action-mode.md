@@ -8,6 +8,29 @@ So far the guardrail has been in **observe mode**, it scans, classifies, and wri
 
 This step applies to either track (Cloud or vLLM), it's the same command.
 
+## How a prompt is evaluated
+
+The same scan path runs in both modes — the only difference is what happens after a CRITICAL verdict.
+
+```mermaid
+flowchart TD
+    A[Agent prompt] --> B[Guardrail proxy :4000]
+    B --> C[Regex / pattern match against active rule pack]
+    C --> D{Verdict}
+    D -->|allow| E[Forward to LLM]
+    D -->|critical| F{Mode?}
+    F -->|observe| G[Log verdict · forward to LLM anyway]
+    F -->|action| H[Reject before LLM<br/>return refusal to agent]
+    E --> I[Audit event written]
+    G --> I
+    H --> I
+
+    style E fill:#e8f5e9,stroke:#16a34a
+    style G fill:#fef3c7,stroke:#d97706
+    style H fill:#fee2e2,stroke:#dc2626
+    style I fill:#eef0ff,stroke:#5a67d8
+```
+
 ## Rule packs — pick how strict
 
 DefenseClaw 0.7.x ships three rule packs. They all live under `~/.defenseclaw/policies/guardrail/`:

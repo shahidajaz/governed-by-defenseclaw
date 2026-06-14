@@ -8,6 +8,24 @@ DefenseClaw ships with a bundled local Splunk. Once it's running, every scan eve
 
 ![All three panes. Splunk Search & Reporting (left), gateway.log verdict stream (top-right), OpenClaw TUI demo (bottom-right)](../assets/step6-three-pane-hero.png)
 
+## How events get into Splunk
+
+Three hops: in-memory verdict → SQLite audit DB → HEC POST → Splunk index.
+
+```mermaid
+flowchart LR
+    A[Guardrail scan verdict] --> B[(audit.db<br/>~/.defenseclaw/audit.db)]
+    B --> C[Audit sink]
+    C -- HTTP POST --> D[Splunk HEC :8089]
+    D --> E[Splunk index<br/>defenseclaw_local]
+    E --> F[Splunk Web :8090<br/>Search &amp; Reporting]
+
+    style A fill:#fef3c7,stroke:#d97706
+    style D fill:#eef0ff,stroke:#5a67d8
+    style E fill:#eef0ff,stroke:#5a67d8
+    style F fill:#e8f5e9,stroke:#16a34a
+```
+
 ## 7.1 — Configure ports
 
 *Note: Splunk Web on `8090`, HEC on `8089`.*

@@ -6,6 +6,50 @@ title: "Step 8 — Stage 6: Draft replies (you approve)"
 
 Close the loop: for the "needs me" items, draft replies you review and send. The agent never sends on its own.
 
+## What a draft looks like in front of you
+
+The agent prepares the reply but **doesn't send it**. You see exactly what it would send, and you have to actively approve before anything leaves your account:
+
+<div class="webex-chat" markdown>
+<div class="webex-chat__header" markdown>
+<div class="webex-chat__space-icon">C</div>
+<div class="webex-chat__space-info">
+  <span class="webex-chat__space-name">CustomerSuccess · reply to Priya</span>
+  <span class="webex-chat__space-meta">Draft — not sent yet</span>
+</div>
+</div>
+<div class="webex-chat__body" markdown>
+
+<div class="webex-msg" markdown>
+<div class="webex-msg__avatar user-amber">P</div>
+<div class="webex-msg__content" markdown>
+<div class="webex-msg__head"><span class="webex-msg__name">Priya</span><span class="webex-msg__time">02:14</span></div>
+<div class="webex-msg__body">Customer escalation from Acme — need your eyes on this.</div>
+</div>
+</div>
+
+<div class="webex-msg" markdown>
+<div class="webex-msg__avatar bot">🦞</div>
+<div class="webex-msg__content" markdown>
+<div class="webex-msg__head">
+  <span class="webex-msg__name">Triage assistant</span>
+  <span class="webex-msg__badge">Draft</span>
+</div>
+<div class="webex-msg__body">On it — pulling the Acme thread now. I'll have a customer-facing response in the next 30. Cc'ing Jamie for context.</div>
+</div>
+</div>
+
+</div>
+<div class="webex-draft-bar">
+  <span class="webex-draft-bar__label">Approve this draft?</span>
+  <span class="webex-draft-bar__btn">Edit</span>
+  <span class="webex-draft-bar__btn webex-draft-bar__btn--danger">Discard</span>
+  <span class="webex-draft-bar__btn webex-draft-bar__btn--primary">Send</span>
+</div>
+</div>
+
+Only the **Send** button triggers a real `webex.send_message` call. The agent has no path around this — it has no permission to send messages on its own, only to draft them and show you the result.
+
 ## 1. Drafting prompts
 
 === "Standard, top N, no send"

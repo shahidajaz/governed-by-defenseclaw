@@ -4,7 +4,55 @@ title: "Step 4 — Stage 2: \"What needs my response?\""
 
 # Step 4 — Stage 2: "What needs my response?"
 
-The killer feature, and it maps onto exact Webex calls, so it's explainable, not magic.
+The killer feature — and it maps onto exact Webex calls, so it's explainable, not magic.
+
+## What "needs me" looks like
+
+Same space from [Step 3](phase-3.md), but the agent has flagged two messages as needing your reply. The criteria are deterministic: you're either @mentioned in a group space, or you're in a DM and the last message is theirs (not yours).
+
+<div class="webex-chat" markdown>
+<div class="webex-chat__header" markdown>
+<div class="webex-chat__space-icon">I</div>
+<div class="webex-chat__space-info">
+  <span class="webex-chat__space-name">Across your Webex · today</span>
+  <span class="webex-chat__space-meta">4 threads need a reply from you</span>
+</div>
+</div>
+<div class="webex-chat__body" markdown>
+
+<div class="webex-msg flagged" markdown>
+<div class="webex-msg__avatar user-blue">J</div>
+<div class="webex-msg__content" markdown>
+<div class="webex-msg__head"><span class="webex-msg__name">Jamie</span><span class="webex-msg__time">Infra · 09:14</span></div>
+<div class="webex-msg__body">@you Can you sign off on the deploy plan?</div>
+<div class="webex-msg__flag">⚑ You're @mentioned — needs a reply</div>
+</div>
+</div>
+
+<div class="webex-msg flagged" markdown>
+<div class="webex-msg__avatar user-amber">P</div>
+<div class="webex-msg__content" markdown>
+<div class="webex-msg__head"><span class="webex-msg__name">Priya</span><span class="webex-msg__time">CustomerSuccess · 02:14</span></div>
+<div class="webex-msg__body">Customer escalation from Acme — need your eyes on this.</div>
+<div class="webex-msg__flag">⚑ You're @mentioned — needs a reply</div>
+</div>
+</div>
+
+<div class="webex-msg" markdown>
+<div class="webex-msg__avatar user-green">M</div>
+<div class="webex-msg__content" markdown>
+<div class="webex-msg__head"><span class="webex-msg__name">Mo</span><span class="webex-msg__time">Infra · 09:31</span></div>
+<div class="webex-msg__body">Oncall handoff settled for next week — Dana → Anna.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+??? info "How the agent decides"
+    - **Group spaces:** the agent calls `GET /v1/messages?roomId=…&mentionedPeople=me`. Webex itself filters server-side for messages where you're @mentioned. No model judgment required.
+    - **1:1 DMs:** the agent calls `GET /v1/messages/direct?personId=…` and compares the timestamps — if the last message is theirs, it's pending; if yours, you've already replied.
+    - **No "give me everything" endpoint exists.** The agent walks your spaces one at a time and only queries rooms you're already a member of. That's by design — it keeps the agent scoped to what you can already see.
 
 !!! tip "How it's actually computed"
     - **Group spaces:** `GET /v1/messages?roomId=…&mentionedPeople=me` returns only messages where **you're @mentioned**. Webex does this filter server-side.

@@ -18,6 +18,9 @@ Reach your governed agent from Telegram, a native channel, locked down, with the
 
 Make sure you've completed [Part 1](../part1/index.md).
 
+!!! tip "OpenClaw version"
+    This part is written against **OpenClaw `2026.2.17`**. [Step 2.1](phase-2.md#21-install-openclaw) installs that release explicitly — it pairs cleanly with the sandbox wiring from Part 1.
+
 ## Project Steps
 
 <div class="step-grid" markdown>

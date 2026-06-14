@@ -1,5 +1,24 @@
 # Step 4 — Set up your model: vLLM
 
+## What you're wiring up
+
+You'll run vLLM in Docker on your machine, then plug OpenClaw and DefenseClaw into it. Once it's all connected, every prompt goes through this path:
+
+```mermaid
+flowchart LR
+    A[Agent] --> B["DefenseClaw guardrail<br/>(port 4000)"]
+    B --> C["vLLM<br/>(port 8000)"]
+    C --> D[gpt-oss-120b]
+    D -- answer --> C
+    C --> B
+    B --> A
+
+    style B fill:#fef3c7,stroke:#d97706
+    style D fill:#e8f5e9,stroke:#16a34a
+```
+
+If anything stops working in this chapter, the failure is almost always on one of the three hops above. Use `curl` directly against each port to find which one's down.
+
 ### 3.1 — Get a model server running
 
 **What you'll get:** a 120B-parameter open-weight model served by vLLM in Docker, with an OpenAI-compatible API at `127.0.0.1:8000/v1`. This is what we ran in the lab.

@@ -6,6 +6,33 @@ title: "Step 2 — Install OpenClaw + DefenseClaw"
 
 Two installers, in this order. The version pin on OpenClaw matters, it's the version DefenseClaw's installer expects.
 
+## What gets installed where
+
+The two installers drop binaries, config files, and a plugin in a handful of places. Knowing the layout up front makes the rest of this series easier to follow when you need to troubleshoot.
+
+```mermaid
+flowchart TB
+    subgraph npm["OpenClaw (via npm, system-wide)"]
+        OC1["/usr/local/bin/openclaw<br/>the CLI you'll run"]
+        OC2["/usr/local/lib/node_modules/openclaw<br/>the gateway + bundled channels (Telegram, Slack, etc.)"]
+    end
+
+    subgraph dc["DefenseClaw (via Cisco's install.sh)"]
+        DC1["~/.local/bin/defenseclaw<br/>~/.local/bin/defenseclaw-gateway<br/>the CLI and the host gateway"]
+        DC2["~/.defenseclaw/<br/>configs, audit DB, gateway logs, policy packs"]
+        DC3["~/.openclaw/extensions/defenseclaw/<br/>the plugin that links the two together"]
+    end
+
+    style OC1 fill:#eef0ff,stroke:#5a67d8
+    style OC2 fill:#eef0ff,stroke:#5a67d8
+    style DC1 fill:#fef3c7,stroke:#d97706
+    style DC2 fill:#fef3c7,stroke:#d97706
+    style DC3 fill:#e8f5e9,stroke:#16a34a
+```
+
+??? info "Why the plugin lives under `~/.openclaw/extensions/`"
+    OpenClaw can load third-party plugins from any folder under its extensions directory. DefenseClaw's installer drops itself there as `defenseclaw`, and OpenClaw picks it up automatically the next time the gateway starts. That's the bridge: OpenClaw runs the agent, the DefenseClaw plugin sits inside OpenClaw's process and intercepts every model call.
+
 ## Install OpenClaw (pinned version)
 
 ```bash

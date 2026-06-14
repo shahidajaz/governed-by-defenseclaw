@@ -4,7 +4,50 @@ title: "Step 3 — Stage 1: Read (prove access)"
 
 # Step 3 — Stage 1: Read (prove access)
 
-Before any intelligence, prove the plain read works and is audited.
+Before any intelligence, prove the plain read works and is audited. The agent uses the token from [Step 1](phase-1.md) to make a normal Webex REST call — same call the Webex desktop app makes when it loads a space.
+
+## What the agent is looking at
+
+Here's a typical space the agent will read from. It sees the same messages you do, in the same order:
+
+<div class="webex-chat" markdown>
+<div class="webex-chat__header" markdown>
+<div class="webex-chat__space-icon">I</div>
+<div class="webex-chat__space-info">
+  <span class="webex-chat__space-name">Infra</span>
+  <span class="webex-chat__space-meta">8 members · 47 messages today</span>
+</div>
+</div>
+<div class="webex-chat__body" markdown>
+
+<div class="webex-msg" markdown>
+<div class="webex-msg__avatar user-blue">J</div>
+<div class="webex-msg__content" markdown>
+<div class="webex-msg__head"><span class="webex-msg__name">Jamie</span><span class="webex-msg__time">09:14</span></div>
+<div class="webex-msg__body">Deploy plan posted in the channel — need sign-off before 4pm.</div>
+</div>
+</div>
+
+<div class="webex-msg" markdown>
+<div class="webex-msg__avatar user-green">M</div>
+<div class="webex-msg__content" markdown>
+<div class="webex-msg__head"><span class="webex-msg__name">Mo</span><span class="webex-msg__time">09:31</span></div>
+<div class="webex-msg__body">Oncall handoff settled for next week — Dana → Anna.</div>
+</div>
+</div>
+
+<div class="webex-msg" markdown>
+<div class="webex-msg__avatar user-amber">A</div>
+<div class="webex-msg__content" markdown>
+<div class="webex-msg__head"><span class="webex-msg__name">Anna</span><span class="webex-msg__time">10:02</span></div>
+<div class="webex-msg__body">Grafana alert from last night — wrote up the post-mortem, comments welcome.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+When you run the prompts below, the agent calls `GET /v1/rooms` to find this space, then `GET /v1/messages?roomId=...` to pull the messages. Nothing fancy — just two REST calls, both logged by DefenseClaw.
 
 ## 1. List spaces, then pull recent messages
 

@@ -8,6 +8,44 @@ So far the agent has been running as **you**, on the host. That's fine for evalu
 
 **Sandbox-native mode** moves the agent into the NVIDIA OpenShell sandbox: a dedicated `sandbox` user, a clean home directory, an isolated network namespace. The agent can still do useful work, read files it's been given, call its model, but it can no longer reach into your real environment, even if a tool call slips past the guardrail.
 
+## How sandbox-native is laid out
+
+Think of it as two side-by-side rooms connected by a single doorway. Everything the agent touches lives on the right; the guardrail and audit pipeline live on the left. The agent has no way out except through the guardrail door.
+
+```mermaid
+flowchart LR
+    subgraph host["Your normal network · 10.200.0.1"]
+        sidecar["DefenseClaw audit pipeline<br/>(port 18970)"]
+        proxy["DefenseClaw guardrail<br/>(port 4000)"]
+        vllm["Local model · vLLM<br/>(port 8000)"]
+    end
+
+    subgraph sandbox["Sandbox network · 10.200.0.2"]
+        oc["OpenClaw gateway<br/>(port 18789)"]
+        plugin["DefenseClaw plugin<br/>(intercepts model calls)"]
+        agent["Agent · runs as user 'sandbox'"]
+    end
+
+    agent --> oc
+    oc --> plugin
+    plugin -- model call --> proxy
+    plugin -- scan / audit --> sidecar
+    proxy --> vllm
+
+    host <-. virtual cable .-> sandbox
+
+    style proxy fill:#eef0ff,stroke:#5a67d8
+    style sidecar fill:#eef0ff,stroke:#5a67d8
+    style plugin fill:#fef3c7,stroke:#d97706
+    style agent fill:#e8f5e9,stroke:#16a34a
+```
+
+??? info "What the technical names mean"
+    - **Network namespace** (or *netns*) — a Linux feature that gives a process its own isolated network. The sandbox runs in one, so it can't see or reach anything outside.
+    - **veth pair** (the "virtual cable" in the diagram) — a pair of fake network interfaces linked together. Anything sent into one side comes out the other. It's how the two namespaces talk.
+    - **Sidecar** — a small companion service running alongside the main one, usually for cross-cutting concerns like auditing or telemetry.
+    - **Fetch interceptor** — the plugin patches the agent's HTTP client so every outbound request is routed through DefenseClaw automatically. The agent doesn't know it's being filtered.
+
 ## 5.1 — Install OpenClaw system-wide
 
 The sandbox runs OpenClaw as the `sandbox` system user, which has its own `PATH` (`/usr/local/bin:/usr/bin:/bin`). If your earlier install used `nvm`, OpenClaw lives under `~/.nvm/...` and is invisible to `sandbox`. Reinstall under `/usr/local` so the sandbox user can find it:

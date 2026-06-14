@@ -624,6 +624,428 @@ body, .md-typeset {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   Telegram chat mockup — renders an inline phone-style conversation
+   ═══════════════════════════════════════════════════════════════════ */
+
+.tg-chat {
+  max-width: 360px;
+  margin: 1.5rem auto;
+  border-radius: 18px;
+  border: 1px solid var(--dc-border);
+  background: var(--dc-bg-soft);
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+[data-md-color-scheme="slate"] .tg-chat {
+  background: #14171f;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+.tg-chat__header {
+  background: #2aabee;
+  color: white;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tg-chat__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tg-chat__title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.tg-chat__title-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tg-chat__title-sub {
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.tg-chat__body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #e8eef3;
+}
+
+[data-md-color-scheme="slate"] .tg-chat__body {
+  background: #0d1117;
+}
+
+.tg-msg {
+  max-width: 75%;
+  padding: 8px 12px;
+  border-radius: 14px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  font-size: 13.5px;
+  position: relative;
+}
+
+.tg-msg.user {
+  align-self: flex-end;
+  background: #effdde;
+  color: #0f172a;
+  border-bottom-right-radius: 4px;
+}
+
+[data-md-color-scheme="slate"] .tg-msg.user {
+  background: #2b5278;
+  color: #e6e8eb;
+}
+
+.tg-msg.bot {
+  align-self: flex-start;
+  background: #ffffff;
+  color: #0f172a;
+  border-bottom-left-radius: 4px;
+  border: 1px solid var(--dc-border);
+}
+
+[data-md-color-scheme="slate"] .tg-msg.bot {
+  background: #182533;
+  color: #e6e8eb;
+  border-color: #243441;
+}
+
+.tg-msg.system {
+  align-self: center;
+  background: transparent;
+  color: var(--dc-ink-3);
+  font-size: 11px;
+  font-style: italic;
+  text-align: center;
+  max-width: 95%;
+  padding: 4px 8px;
+}
+
+.tg-msg.denied {
+  border-left: 3px solid #dc2626;
+  background: #fff5f5;
+}
+
+[data-md-color-scheme="slate"] .tg-msg.denied {
+  background: #2a1620;
+}
+
+.tg-msg__time {
+  font-size: 10px;
+  color: var(--dc-ink-4);
+  margin-top: 2px;
+  text-align: right;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Webex chat mockup — renders an inline space conversation
+   ═══════════════════════════════════════════════════════════════════ */
+
+.webex-chat {
+  max-width: 540px;
+  margin: 1.5rem auto;
+  border-radius: 10px;
+  border: 1px solid var(--dc-border);
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+[data-md-color-scheme="slate"] .webex-chat {
+  background: #1a1d24;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+.webex-chat__header {
+  background: linear-gradient(135deg, #08495C 0%, #0D6B82 100%);
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.webex-chat__space-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.webex-chat__space-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  flex-grow: 1;
+}
+
+.webex-chat__space-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.webex-chat__space-meta {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.webex-chat__body {
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #f7f8fa;
+}
+
+[data-md-color-scheme="slate"] .webex-chat__body {
+  background: #131620;
+}
+
+.webex-msg {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.webex-msg__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--dc-bg-sunken);
+  color: var(--dc-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.webex-msg__avatar.bot {
+  background: #6F2DA8;
+  color: white;
+}
+
+.webex-msg__avatar.user-blue {
+  background: #3b82f6;
+  color: white;
+}
+
+.webex-msg__avatar.user-green {
+  background: #16a34a;
+  color: white;
+}
+
+.webex-msg__avatar.user-amber {
+  background: #d97706;
+  color: white;
+}
+
+.webex-msg__content {
+  flex-grow: 1;
+}
+
+.webex-msg__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.webex-msg__name {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--dc-ink);
+}
+
+.webex-msg__time {
+  font-size: 11px;
+  color: var(--dc-ink-3);
+}
+
+.webex-msg__badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #6F2DA8;
+  color: white;
+}
+
+.webex-msg__body {
+  font-size: 13.5px;
+  color: var(--dc-ink-2);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+[data-md-color-scheme="slate"] .webex-msg__name {
+  color: var(--dc-ink);
+}
+
+[data-md-color-scheme="slate"] .webex-msg__body {
+  color: var(--dc-ink-2);
+}
+
+/* Flag highlight — for "needs me" stage */
+.webex-msg.flagged {
+  background: #fffbeb;
+  border-left: 3px solid #d97706;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-left: -10px;
+}
+
+[data-md-color-scheme="slate"] .webex-msg.flagged {
+  background: #2a230f;
+}
+
+.webex-msg__flag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #d97706;
+  margin-top: 4px;
+}
+
+/* Draft pending — for Step 8 */
+.webex-draft-bar {
+  background: var(--dc-bg-sunken);
+  border-top: 1px solid var(--dc-border);
+  padding: 10px 14px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--dc-ink-2);
+}
+
+.webex-draft-bar__label {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+.webex-draft-bar__btn {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--dc-border);
+  background: var(--dc-bg);
+}
+
+.webex-draft-bar__btn--primary {
+  background: #16a34a;
+  color: white;
+  border-color: #16a34a;
+}
+
+.webex-draft-bar__btn--danger {
+  background: var(--dc-bg);
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Side-by-side config diff (before / after)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.config-diff {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 1.25rem 0;
+}
+
+.config-diff > div {
+  border: 1px solid var(--dc-border);
+  border-radius: var(--dc-radius);
+  background: var(--dc-bg-soft);
+  padding: 12px 14px;
+}
+
+.config-diff h4 {
+  margin: 0 0 8px !important;
+  font-size: 11px !important;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dc-ink-3) !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.config-diff__before h4 {
+  color: #b45309 !important;
+}
+
+.config-diff__after h4 {
+  color: #16a34a !important;
+}
+
+.config-diff pre {
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media screen and (max-width: 600px) {
+  .config-diff {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Mermaid container — give diagrams breathing room + soft frame
+   ═══════════════════════════════════════════════════════════════════ */
+
+.md-typeset .mermaid {
+  text-align: center;
+  background: var(--dc-bg-soft);
+  border: 1px solid var(--dc-border);
+  border-radius: var(--dc-radius);
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.md-typeset .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    Mobile / drawer
    ═══════════════════════════════════════════════════════════════════ */
 

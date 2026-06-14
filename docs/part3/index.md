@@ -27,6 +27,33 @@ Three layers, working together:
 - **Reasoning**, the local LLM does the thinking (needs-me, clustering, ranking, summaries, drafts)
 - **Governance**. DefenseClaw watches and audits every Webex call
 
+## The pipeline at a glance
+
+Six stages turn raw Webex traffic into a digest of what needs you. Every stage is observable; every LLM call is governed.
+
+```mermaid
+flowchart LR
+    A["Webex<br/>REST API"] --> S1["Stage 1<br/>Read"]
+    S1 --> S2["Stage 2<br/>Needs me"]
+    S2 --> S3["Stage 3<br/>Cluster"]
+    S3 --> S4["Stage 4<br/>Rank"]
+    S4 --> S5["Stage 5<br/>Meetings"]
+    S5 --> S6["Stage 6<br/>Drafts"]
+    S6 --> D["Assemble digest"]
+    D --> U["You"]
+
+    DC["DefenseClaw guardrail<br/>(scans every model call)"] -.-> S2
+    DC -.-> S3
+    DC -.-> S4
+    DC -.-> S5
+    DC -.-> S6
+
+    style A fill:#eef0ff,stroke:#5a67d8
+    style DC fill:#fef3c7,stroke:#d97706
+    style D fill:#e8f5e9,stroke:#16a34a
+    style U fill:#e8f5e9,stroke:#16a34a
+```
+
 ## Project Steps
 
 <div class="step-grid" markdown>
